@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_batchemailsender_main" default="compile.module.batchemailsender_main">
+  <dirname property="module.batchemailsender_main.basedir" file="${ant.file.module_batchemailsender_main}"/>
+  
+  <property name="module.jdk.home.batchemailsender_main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.batchemailsender_main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.batchemailsender_main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.batchemailsender_main" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="batchemailsender_main.output.dir" value="${module.batchemailsender_main.basedir}/../../build/classes/main"/>
+  <property name="batchemailsender_main.testoutput.dir" value="${module.batchemailsender_main.basedir}/../../build/classes/main"/>
+  
+  <path id="batchemailsender_main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="batchemailsender_main.module.production.classpath">
+    <path refid="${module.jdk.classpath.batchemailsender_main}"/>
+    <path refid="library.gradle:_com.google.api-client:google-api-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-jetty:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.apis:google-api-services-gmail:v1-rev57-1.22.0.classpath"/>
+    <path refid="library.gradle:_net.java.dev.swing-layout:swing-layout:1.0.2.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client-jackson2:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.guava:guava-jdk5:17.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-java6:1.22.0.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty:6.1.26.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.gradle:_com.fasterxml.jackson.core:jackson-core:2.1.3.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty-util:6.1.26.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:servlet-api:2.5-20081211.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpclient:4.0.1.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpcore:4.0.1.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.gradle:_commons-codec:commons-codec:1.3.classpath"/>
+  </path>
+  
+  <path id="batchemailsender_main.runtime.production.module.classpath">
+    <pathelement location="${batchemailsender_main.output.dir}"/>
+    <path refid="library.gradle:_com.google.api-client:google-api-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-jetty:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.apis:google-api-services-gmail:v1-rev57-1.22.0.classpath"/>
+    <path refid="library.gradle:_net.java.dev.swing-layout:swing-layout:1.0.2.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client-jackson2:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.guava:guava-jdk5:17.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-java6:1.22.0.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty:6.1.26.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.gradle:_com.fasterxml.jackson.core:jackson-core:2.1.3.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty-util:6.1.26.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:servlet-api:2.5-20081211.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpclient:4.0.1.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpcore:4.0.1.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.gradle:_commons-codec:commons-codec:1.3.classpath"/>
+  </path>
+  
+  <path id="batchemailsender_main.module.classpath">
+    <path refid="${module.jdk.classpath.batchemailsender_main}"/>
+    <pathelement location="${batchemailsender_main.output.dir}"/>
+    <path refid="library.gradle:_com.google.api-client:google-api-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-jetty:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.apis:google-api-services-gmail:v1-rev57-1.22.0.classpath"/>
+    <path refid="library.gradle:_net.java.dev.swing-layout:swing-layout:1.0.2.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client-jackson2:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.guava:guava-jdk5:17.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-java6:1.22.0.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty:6.1.26.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.gradle:_com.fasterxml.jackson.core:jackson-core:2.1.3.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty-util:6.1.26.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:servlet-api:2.5-20081211.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpclient:4.0.1.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpcore:4.0.1.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.gradle:_commons-codec:commons-codec:1.3.classpath"/>
+  </path>
+  
+  <path id="batchemailsender_main.runtime.module.classpath">
+    <pathelement location="${batchemailsender_main.output.dir}"/>
+    <path refid="library.gradle:_com.google.api-client:google-api-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-jetty:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.apis:google-api-services-gmail:v1-rev57-1.22.0.classpath"/>
+    <path refid="library.gradle:_net.java.dev.swing-layout:swing-layout:1.0.2.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client-jackson2:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.guava:guava-jdk5:17.0.classpath"/>
+    <path refid="library.gradle:_com.google.oauth-client:google-oauth-client-java6:1.22.0.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty:6.1.26.classpath"/>
+    <path refid="library.gradle:_com.google.http-client:google-http-client:1.22.0.classpath"/>
+    <path refid="library.gradle:_com.google.code.findbugs:jsr305:1.3.9.classpath"/>
+    <path refid="library.gradle:_com.fasterxml.jackson.core:jackson-core:2.1.3.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:jetty-util:6.1.26.classpath"/>
+    <path refid="library.gradle:_org.mortbay.jetty:servlet-api:2.5-20081211.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpclient:4.0.1.classpath"/>
+    <path refid="library.gradle:_org.apache.httpcomponents:httpcore:4.0.1.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.1.1.classpath"/>
+    <path refid="library.gradle:_commons-codec:commons-codec:1.3.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.batchemailsender_main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.batchemailsender_main">
+    <patternset refid="excluded.from.module.batchemailsender_main"/>
+  </patternset>
+  
+  <path id="batchemailsender_main.module.sourcepath">
+    <dirset dir="${module.batchemailsender_main.basedir}/../../src/main">
+      <include name="java"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.batchemailsender_main" depends="compile.module.batchemailsender_main.production,compile.module.batchemailsender_main.tests" description="Compile module batchemailsender_main"/>
+  
+  <target name="compile.module.batchemailsender_main.production" depends="register.custom.compilers" description="Compile module batchemailsender_main; production classes">
+    <mkdir dir="${batchemailsender_main.output.dir}"/>
+    <javac2 destdir="${batchemailsender_main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.batchemailsender_main}/javac">
+      <compilerarg line="${compiler.args.batchemailsender_main}"/>
+      <bootclasspath refid="batchemailsender_main.module.bootclasspath"/>
+      <classpath refid="batchemailsender_main.module.production.classpath"/>
+      <src refid="batchemailsender_main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.batchemailsender_main"/>
+    </javac2>
+    
+    <copy todir="${batchemailsender_main.output.dir}">
+      <fileset dir="${module.batchemailsender_main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.batchemailsender_main.basedir}/../../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.batchemailsender_main.tests" depends="register.custom.compilers,compile.module.batchemailsender_main.production" description="compile module batchemailsender_main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.batchemailsender_main" description="cleanup module">
+    <delete dir="${batchemailsender_main.output.dir}"/>
+    <delete dir="${batchemailsender_main.testoutput.dir}"/>
+  </target>
+</project>

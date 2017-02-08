@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_batchemailsender" default="compile.module.batchemailsender">
+  <dirname property="module.batchemailsender.basedir" file="${ant.file.module_batchemailsender}"/>
+  
+  <property name="module.jdk.home.batchemailsender" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.batchemailsender" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.batchemailsender" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.batchemailsender" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="batchemailsender.output.dir" value="${module.batchemailsender.basedir}/../../out/production/batchemailsender"/>
+  <property name="batchemailsender.testoutput.dir" value="${module.batchemailsender.basedir}/../../out/test/batchemailsender"/>
+  
+  <path id="batchemailsender.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="batchemailsender.module.production.classpath">
+    <path refid="${module.jdk.classpath.batchemailsender}"/>
+  </path>
+  
+  <path id="batchemailsender.runtime.production.module.classpath">
+    <pathelement location="${batchemailsender.output.dir}"/>
+  </path>
+  
+  <path id="batchemailsender.module.classpath">
+    <path refid="${module.jdk.classpath.batchemailsender}"/>
+    <pathelement location="${batchemailsender.output.dir}"/>
+  </path>
+  
+  <path id="batchemailsender.runtime.module.classpath">
+    <pathelement location="${batchemailsender.testoutput.dir}"/>
+    <pathelement location="${batchemailsender.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.batchemailsender">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.batchemailsender">
+    <patternset refid="excluded.from.module.batchemailsender"/>
+  </patternset>
+  
+  
+  <target name="compile.module.batchemailsender" depends="compile.module.batchemailsender.production,compile.module.batchemailsender.tests" description="Compile module batchemailsender"/>
+  
+  <target name="compile.module.batchemailsender.production" depends="register.custom.compilers" description="Compile module batchemailsender; production classes"/>
+  
+  <target name="compile.module.batchemailsender.tests" depends="register.custom.compilers,compile.module.batchemailsender.production" description="compile module batchemailsender; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.batchemailsender" description="cleanup module">
+    <delete dir="${batchemailsender.output.dir}"/>
+    <delete dir="${batchemailsender.testoutput.dir}"/>
+  </target>
+</project>
