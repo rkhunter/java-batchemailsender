@@ -2,27 +2,22 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by rkhunter on 2/3/17.
- */
-public class CampaignSelectOrCreateWindow extends JFrame {
-    private JPanel mainPanel;
-    private JComboBox availableCampaigns;
-    ActionListener availableCampaignsCampaignSelected;
-    private JButton renameCampaign;
+// TODO: Renaming campaign functionality. Depends on mapDB
+class CampaignSelectOrCreateWindow extends JFrame {
+    private JComboBox<String> availableCampaigns;
+    private ActionListener availableCampaignsCampaignSelected;
     private JButton deleteCampaign;
     private JButton selectCampaign;
 
-    public CampaignSelectOrCreateWindow() {
-        mainPanel = new JPanel();
+    CampaignSelectOrCreateWindow() {
+        JPanel mainPanel = new JPanel();
         mainPanel.setBorder(new EmptyBorder(10, 10, 10 ,10));
         mainPanel.setLayout(new GridLayout(4,0));
 
-        availableCampaigns = new JComboBox();
+        availableCampaigns = new JComboBox<>();
         availableCampaigns.setBorder(new TitledBorder("Available Campaigns"));
         availableCampaignsCampaignSelected = (e -> {
                 JComboBox comboBox = (JComboBox) e.getSource();
@@ -38,7 +33,7 @@ public class CampaignSelectOrCreateWindow extends JFrame {
 
                     if ((s != null) && (s.length() > 0)) {
                         availableCampaigns.removeItemAt(0); // remove "Create new"
-                        BatchEmailSender.createNewCampaign(s).thenRun(() -> refreshCampaignsList());
+                        BatchEmailSender.createNewCampaign(s).thenRun(this::refreshCampaignsList);
                     } else JOptionPane.showMessageDialog (null, "The campaign name cannot be empty", "Create new campaign failed", JOptionPane.WARNING_MESSAGE);
                 }
 
@@ -49,13 +44,10 @@ public class CampaignSelectOrCreateWindow extends JFrame {
 
         mainPanel.add(availableCampaigns);
 
-        renameCampaign = new JButton();
+        JButton renameCampaign = new JButton();
         renameCampaign.setText("Rename");
-        renameCampaign.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO: Renaming the campaign
-            }
+        renameCampaign.addActionListener(e -> {
+            // TODO: Renaming the campaign
         });
         renameCampaign.setEnabled(false);
         mainPanel.add(renameCampaign);
@@ -63,13 +55,10 @@ public class CampaignSelectOrCreateWindow extends JFrame {
 
         deleteCampaign = new JButton();
         deleteCampaign.setText("Delete");
-        deleteCampaign.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BatchEmailSender.deleteCampaign(availableCampaigns.getSelectedItem().toString());
-                refreshCampaignsList();
-                verifySelection();
-            }
+        deleteCampaign.addActionListener(e -> {
+            BatchEmailSender.deleteCampaign(availableCampaigns.getSelectedItem().toString());
+            refreshCampaignsList();
+            verifySelection();
         });
         deleteCampaign.setEnabled(false);
         mainPanel.add(deleteCampaign);
@@ -85,9 +74,7 @@ public class CampaignSelectOrCreateWindow extends JFrame {
                      authenticationWelcomeWindow.setVisible(true);
                      this.setVisible(false);
                 }
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            } catch (ExecutionException e1) {
+            } catch (InterruptedException | ExecutionException e1) {
                 e1.printStackTrace();
             }
         });
@@ -98,9 +85,9 @@ public class CampaignSelectOrCreateWindow extends JFrame {
 
 
 
-        setContentPane(this.mainPanel);
+        setContentPane(mainPanel);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Select campaign or create new");
         setSize(500, 400);
         setResizable(false);
@@ -113,7 +100,7 @@ public class CampaignSelectOrCreateWindow extends JFrame {
                 campaigns -> {
                     if (!campaigns.iterator().hasNext()) availableCampaigns.addItem("Create new");
                     else {
-                        campaigns.forEach(campaign -> availableCampaigns.addItem(campaign.toString()));
+                        campaigns.forEach(campaign -> availableCampaigns.addItem(campaign));
                         availableCampaigns.addItem("Create new");
                     }
 
@@ -132,9 +119,7 @@ public class CampaignSelectOrCreateWindow extends JFrame {
                 selectCampaign.setEnabled(false);
                 deleteCampaign.setEnabled(false);
             }
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        } catch (ExecutionException e1) {
+        } catch (InterruptedException | ExecutionException e1) {
             e1.printStackTrace();
         }
     }

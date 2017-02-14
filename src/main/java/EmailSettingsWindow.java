@@ -7,44 +7,23 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-/**
- * Created by rkhunter on 2/5/17.
- */
-public class EmailSettingsWindow extends JFrame {
-    // Copy over to next Window
-    private java.util.List<String>  recipients;
-
-    // Main Panel - UI Elements holder
-    private JPanel                  mainPanel;
-
+class EmailSettingsWindow extends JFrame {
     // [1] Subject
     private JTextArea               subject;
-    private JPanel                  subjectWrapper;
 
     // [2] Text Fallback
     private JTextArea               textFallback;
-    private JPanel                  textFallbackWrapper;
 
     // [3] HTML File Template Path
     private File                    htmlFileTemplatePath;
-    private JButton                 htmlFileTemplatePathOpenButton;
     private JLabel                  htmlFileTemplatePathLabel;
-    private JPanel                  htmlFileTemplatePathWrapper;
 
     // [4] Attachments
     private File[]                  attachments;
-    private JButton                 attachmentsOpenButton;
     private JTextArea               attachmentsLabel;
-    private JPanel                  attachmentsWrapper;
 
-    // [5] Send button
-    private JButton                 sendButton;
-    private JPanel                  sendButtonWrapper;
-
-    public EmailSettingsWindow(java.util.List<String> recipients) {
-        this.recipients = recipients;
-
-        mainPanel = new JPanel();
+    EmailSettingsWindow(java.util.List<String> recipients) {
+        JPanel mainPanel = new JPanel();
         mainPanel.setBorder(new EmptyBorder(10, 10, 10 ,10));
         mainPanel.setLayout(new GridBagLayout());
 
@@ -55,7 +34,7 @@ public class EmailSettingsWindow extends JFrame {
 
         // [1] Subject
         subject = new JTextArea();
-        subjectWrapper = new JPanel();
+        JPanel subjectWrapper = new JPanel();
         subjectWrapper.setLayout(new GridLayout(1,1));
         subjectWrapper.setBorder(new TitledBorder("Subject"));
         subjectWrapper.add(subject);
@@ -65,17 +44,17 @@ public class EmailSettingsWindow extends JFrame {
 
         // [2] Text Fallback
         textFallback = new JTextArea();
-        textFallbackWrapper = new JPanel();
+        JPanel textFallbackWrapper = new JPanel();
         textFallbackWrapper.setBorder(new TitledBorder("Text Fallback"));
         textFallbackWrapper.setLayout(new GridLayout(1,1));
         textFallbackWrapper.setBorder(new TitledBorder("Text Fallback"));
-        textFallbackWrapper.add(textFallback);
+        textFallbackWrapper.add(new JScrollPane(textFallback));
         c.gridy = 1;
         c.weighty = 0.5;
         mainPanel.add(textFallbackWrapper, c);
 
         // [3] HTML File Template Path
-        htmlFileTemplatePathWrapper = new JPanel();
+        JPanel htmlFileTemplatePathWrapper = new JPanel();
         htmlFileTemplatePathWrapper.setLayout(new GridBagLayout());
         htmlFileTemplatePathWrapper.setBorder(new TitledBorder("HTML File Template Path"));
         GridBagConstraints c0 = new GridBagConstraints();
@@ -83,7 +62,7 @@ public class EmailSettingsWindow extends JFrame {
         c0.fill = GridBagConstraints.HORIZONTAL;
         c0.gridy = 0;
 
-        htmlFileTemplatePathOpenButton = new JButton();
+        JButton htmlFileTemplatePathOpenButton = new JButton();
         htmlFileTemplatePathOpenButton.setText("Open");
         c0.gridx = 0;
         c0.weightx = 0.2;
@@ -108,7 +87,7 @@ public class EmailSettingsWindow extends JFrame {
         mainPanel.add(htmlFileTemplatePathWrapper, c);
 
         // [4] Attachments
-        attachmentsWrapper = new JPanel();
+        JPanel attachmentsWrapper = new JPanel();
         attachmentsWrapper.setLayout(new GridBagLayout());
         attachmentsWrapper.setBorder(new TitledBorder("Attachments"));
         GridBagConstraints c1 = new GridBagConstraints();
@@ -117,7 +96,7 @@ public class EmailSettingsWindow extends JFrame {
         c1.anchor = GridBagConstraints.NORTHWEST;
         c1.gridy = 0;
 
-        attachmentsOpenButton = new JButton();
+        JButton attachmentsOpenButton = new JButton();
         attachmentsOpenButton.setText("Open");
 
         c1.gridx = 0;
@@ -147,15 +126,15 @@ public class EmailSettingsWindow extends JFrame {
         mainPanel.add(attachmentsWrapper, c);
 
         // [5] Send Button
-        sendButton = new JButton();
+        JButton sendButton = new JButton();
         sendButton.setText("Send");
         sendButton.addActionListener(e -> {
-            BatchEmailSender.setSettings(null, null, subject.getText().toString(), textFallback.getText().toString(), (htmlFileTemplatePath == null ? "" : htmlFileTemplatePath.getAbsolutePath()), parseAttachmentsIntoString(attachments));
-            SendingEmailsWindow sendingEmailsWindow = new SendingEmailsWindow(recipients, subject.getText().toString(), textFallback.getText().toString(), htmlFileTemplatePath, attachments);
+            BatchEmailSender.setSettings(null, null, subject.getText(), textFallback.getText(), (htmlFileTemplatePath == null ? "" : htmlFileTemplatePath.getAbsolutePath()), parseAttachmentsIntoString(attachments));
+            SendingEmailsWindow sendingEmailsWindow = new SendingEmailsWindow(recipients, subject.getText(), textFallback.getText(), htmlFileTemplatePath, attachments);
             sendingEmailsWindow.setVisible(true);
             this.setVisible(false);
         });
-        sendButtonWrapper = new JPanel();
+        JPanel sendButtonWrapper = new JPanel();
         sendButtonWrapper.setLayout(new GridBagLayout());
         sendButtonWrapper.add(sendButton);
 
@@ -164,9 +143,9 @@ public class EmailSettingsWindow extends JFrame {
         mainPanel.add(sendButtonWrapper, c);
 
 
-        setContentPane(this.mainPanel);
+        setContentPane(mainPanel);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fill the letter");
         setSize(600, 600);
 
@@ -196,14 +175,14 @@ public class EmailSettingsWindow extends JFrame {
         else {
             java.util.List<String> entries = Arrays.asList(valueFromSettings.split("\\|"));
             entries.forEach(entry -> System.out.println("-> " + entry));
-            return entries.stream().map(entry -> new File(entry)).filter(File::exists).toArray(File[]::new);
+            return entries.stream().map(File::new).filter(File::exists).toArray(File[]::new);
         }
     }
 
     private String parseAttachmentsIntoString(File[] attachmentsList) {
         if (attachmentsList == null || attachmentsList.length == 0) return "";
         else {
-            java.util.List<String> filePaths = Arrays.stream(attachmentsList).map(file -> file.getAbsolutePath()).collect(Collectors.toList());
+            java.util.List<String> filePaths = Arrays.stream(attachmentsList).map(File::getAbsolutePath).collect(Collectors.toList());
             return String.join("|", filePaths);
         }
     }
