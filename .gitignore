@@ -6,3 +6,5 @@ libs
 batchemailsender.properties
 batchemailsender.xml
 src/main/resources/client_secret.json
+campaigns.db
+*.DS_Store
