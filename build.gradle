@@ -1,4 +1,4 @@
-group 'ru.xxiempire.rkhunter.cutterknives1'
+group 'ru.xxiempire.rkhunter.batchemailsender'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -10,6 +10,18 @@ repositories {
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'BatchEmailSender'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 
