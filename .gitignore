@@ -1,0 +1,8 @@
+out
+build
+libs
+.gradle
+.idea
+batchemailsender.properties
+batchemailsender.xml
+src/main/resources/client_secret.json
